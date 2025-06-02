@@ -79,4 +79,4 @@ Only files that physically exist will be included in the output.
 
 ## 📝 License
 
-MIT License
+GPL-3.0
