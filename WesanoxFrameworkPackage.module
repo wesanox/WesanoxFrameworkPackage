@@ -1,0 +1,104 @@
+<?php
+
+namespace ProcessWire;
+
+use ProcessWire\Module;
+
+class WesanoxFrameworkPackage extends WireData implements Module
+{
+    public static function getModuleInfo()
+    {
+        return array(
+            'title' => 'wesanox Framework Package',
+            'summary' => 'The Framework Package Module for Processwire made by wesanox. It implements the standard frontend frameworks.',
+            'version' => '0.1.0',
+            'author' => 'Frittenfritze',
+            'href' => 'https://wesanox.de',
+            'icon' => 'css3',
+            'singular' => true,
+            'autoload' => true,
+            'requires' => array(
+                'ProcessWire>=3.0.210',
+            ),
+        );
+    }
+
+    protected array $styles = [
+        'global_aos',
+        'global_swiper',
+        'global_bootstrap',
+    ];
+
+    protected array $scripts = [
+        'global_jquery',
+        'global_aos',
+        'global_swiper',
+        'global_bootstrap.bundle',
+    ];
+
+    /**
+     * @return string
+     */
+    public function renderStyles() : string
+    {
+        $styles = '';
+
+        foreach ($this->styles as $style) {
+            $styles .= "<link rel='stylesheet' type='text/css'  href='" . $this->getFrameworkStyles($this->config->paths->siteModules .  'WesanoxFrameworkPackage/styles/', $style) . "'>";
+        }
+
+        return $styles;
+    }
+
+    /**
+     * @return string
+     */
+    public function renderScripts() : string
+    {
+        $scripts = '';
+
+        foreach ($this->scripts as $script) {
+            $scripts .= "<script src='" . $this->getFrameworkScripts($this->config->paths->siteModules .  'WesanoxFrameworkPackage/scripts/', $script) . "'></script>";
+        }
+
+        return $scripts;
+    }
+
+    /**
+     * Add Framework styles to the configuration.
+     *
+     * @param string $files_dir The directory path where the style files are located.
+     * @param string $type_name The specific type name used to locate the style file.
+     *
+     * @return string
+     */
+    private function getFrameworkStyles(string $files_dir, string $type_name) : string
+    {
+        $url = '';
+
+        if (file_exists($files_dir . $type_name . '.css')) {
+            $url = $files_dir . $type_name . '.css';
+        }
+
+        return $url;
+    }
+
+    /**
+     * Add Framework scripts to the configuration if the specified script file exists.
+     *
+     * @param string $files_dir Directory path where the script files are located.
+     * @param string $type_name Name of the type used to locate the script file.
+     *
+     * @return string
+     */
+    private function getFrameworkScripts(string $files_dir, string $type_name) : string
+    {
+        $url = '';
+
+        if (file_exists($files_dir . $type_name . '.js')) {
+            $url = $files_dir . $type_name . '.js';
+        }
+
+        return $url;
+    }
+}
