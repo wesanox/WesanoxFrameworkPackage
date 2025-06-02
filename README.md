@@ -5,20 +5,20 @@ This module includes common libraries and provides simple methods to output the 
 
 ---
 
-## 🚀 Included Frontend Libraries
+## Included Frontend Libraries
 
 The following frameworks are bundled and automatically available:
 
-- ✅ AOS 2.3.1 (Animate on Scroll)
-- ✅ Swiper 11.2.6 (Touch slider)
-- ✅ Bootstrap 5.3.3 (CSS framework)
-- ✅ jQuery 3.7.1
+- AOS 2.3.1 (Animate on Scroll)
+- Swiper 11.2.6 (Touch slider)
+- Bootstrap 5.3.3 (CSS framework)
+- jQuery 3.7.1
 
 These files are stored in the module’s internal `styles/` and `scripts/` folders.
 
 ---
 
-## ✅ Usage
+## Usage
 
 ### Output styles:
 
@@ -36,7 +36,7 @@ These methods generate `<link>` and `<script>` tags for all configured assets **
 
 ---
 
-## ⚙️ Internal Configuration
+## Internal Configuration
 
 The module uses internal arrays to define which files to load:
 
@@ -59,7 +59,7 @@ protected array $scripts = [
 
 ---
 
-## 📁 File Structure
+## File Structure
 
 Files must be named according to this convention:
 
@@ -70,13 +70,13 @@ Only files that physically exist will be included in the output.
 
 ---
 
-## 🧩 Requirements
+## Requirements
 
 - ProcessWire 3.x
 - PHP 8.1 or higher
 
 ---
 
-## 📝 License
+## License
 
 GPL-3.0
