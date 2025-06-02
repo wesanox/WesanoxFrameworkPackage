@@ -1,1 +1,26 @@
-# Wesanox Framework Package
+# Wesanox Framework Package 🚀
+
+A lightweight ProcessWire module for including essential frontend frameworks with minimal setup.
+
+This module helps you include popular frontend libraries via simple method calls — no manual linking or copy-pasting required.
+
+## Included Frontend Libraries
+
+The following libraries are bundled and ready to use:
+
+- AOS **2.3.1** – Animate on Scroll
+- Swiper **11.2.6** – Responsive touch slider
+- Bootstrap **5.3.3** – CSS framework
+- jQuery **3.7.1** – JavaScript utility library
+
+All files are included inside the module's `styles/` and `scripts/` folders.
+
+## How to Use
+
+### Include styles in your template:
+
+echo $modules->WesanoxFrameworkPackage->renderStyles();
+
+##  License
+
+GPL-3.0 License
