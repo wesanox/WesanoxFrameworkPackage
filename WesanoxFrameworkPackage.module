@@ -34,6 +34,8 @@ class WesanoxFrameworkPackage extends WireData implements Module
     ];
 
     /**
+     * Render the styles for the frontend
+     *
      * @return string
      */
     public function renderStyles() : string
@@ -48,6 +50,8 @@ class WesanoxFrameworkPackage extends WireData implements Module
     }
 
     /**
+     * Render the scripts for the frontend
+     *
      * @return string
      */
     public function renderScripts() : string
