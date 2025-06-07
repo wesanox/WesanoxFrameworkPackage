@@ -9,7 +9,7 @@ class WesanoxFrameworkPackage extends WireData implements Module
         return array(
             'title' => 'wesanox Framework Package',
             'summary' => 'The Framework Package Module for Processwire made by wesanox. It implements the standard frontend frameworks.',
-            'version' => '0.1.1',
+            'version' => '0.1.2',
             'author' => 'Frittenfritze',
             'href' => 'https://wesanox.de',
             'icon' => 'css3',
