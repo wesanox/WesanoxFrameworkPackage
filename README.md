@@ -10,8 +10,8 @@ This module includes common libraries and provides simple methods to output the 
 The following frameworks are bundled and automatically available:
 
 - AOS 2.3.1 (Animate on Scroll)
-- Swiper 11.2.8 (Touch slider)
-- Bootstrap 5.3.6 (CSS framework)
+- Swiper 12.0.2 (Touch slider)
+- Bootstrap 5.3.8 (CSS framework)
 - jQuery 3.7.1
 
 These files are stored in the module’s internal `styles/` and `scripts/` folders.
