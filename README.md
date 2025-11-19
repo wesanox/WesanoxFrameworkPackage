@@ -52,6 +52,7 @@ protected array $scripts = [
     'global_aos',
     'global_swiper',
     'global_bootstrap.bundle',
+    'global_lazyload'
 ];
 ```
 
