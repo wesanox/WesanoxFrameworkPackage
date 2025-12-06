@@ -2,30 +2,50 @@
 
 namespace ProcessWire;
 
-class WesanoxFrameworkPackage extends WireData implements Module
+class WesanoxFrameworkPackage extends WireData implements Module, ConfigurableModule
 {
     public static function getModuleInfo()
     {
         return array(
             'title' => 'wesanox Framework Package',
             'summary' => 'The Framework Package Module for Processwire made by wesanox. It implements the standard frontend frameworks.',
-            'version' => '0.1.4',
+            'version' => '0.2.1',
             'author' => 'Frittenfritze',
             'href' => 'https://wesanox.de',
             'icon' => 'css3',
             'singular' => true,
+            'autoload' => true,
             'requires' => array(
                 'ProcessWire>=3.0.210',
             ),
         );
     }
 
-    protected array $styles = [
+    /**
+     * CSS Styles to be loaded on the frontend.
+     *
+     * @var array|string[] $styles_css
+     */
+    protected array $styles_css = [
         'global_aos',
         'global_swiper',
         'global_bootstrap',
     ];
 
+    /**
+     * SCSS Styles to be loaded on the frontend.
+     *
+     * @var array|string[] $styles_scss
+     */
+    protected array $styles_scss = [
+        'global_bootstrap_icons'
+    ];
+
+    /**
+     * Javascript Scripts to be loaded on the frontend.
+     *
+     * @var array|string[] $scripts
+     */
     protected array $scripts = [
         'global_jquery',
         'global_aos',
@@ -43,8 +63,20 @@ class WesanoxFrameworkPackage extends WireData implements Module
     {
         $styles = '';
 
-        foreach ($this->styles as $style) {
-            $styles .= "<link rel='stylesheet' type='text/css'  href='" . $this->getFrameworkStyles($this->config->paths->siteModules .  'WesanoxFrameworkPackage/styles/', $style) . "'>";
+        foreach ($this->styles_css as $style) {
+            $array = (isset($this->remove_frameworks)) ? in_array($style, $this->remove_frameworks) : NULL;
+
+            if (!$array) {
+                $styles .= "<link rel='stylesheet' type='text/css'  href='" . $this->getFrameworkStyles($this->config->paths->siteModules . 'WesanoxFrameworkPackage/styles/css/', $style) . "'>";
+            }
+        }
+
+        foreach ($this->styles_scss as $style) {
+            $array = (isset($this->remove_frameworks)) ? in_array($style, $this->remove_frameworks) : NULL;
+
+            if (!$array) {
+                $styles .= "<link rel='stylesheet' type='text/css'  href='" . $this->getFrameworkStyles($this->config->paths->siteModules .  'WesanoxFrameworkPackage/styles/scss/', $style) . "'>";
+            }
         }
 
         return $styles;
@@ -60,10 +92,48 @@ class WesanoxFrameworkPackage extends WireData implements Module
         $scripts = '';
 
         foreach ($this->scripts as $script) {
-            $scripts .= "<script src='" . $this->getFrameworkScripts($this->config->paths->siteModules .  'WesanoxFrameworkPackage/scripts/', $script) . "'></script>";
+            $array = (isset($this->remove_frameworks)) ? in_array($script, $this->remove_frameworks) : NULL;
+
+            if (!$array) {
+                $scripts .= "<script src='" . $this->getFrameworkScripts($this->config->paths->siteModules . 'WesanoxFrameworkPackage/scripts/', $script) . "'></script>";
+            }
         }
 
         return $scripts;
+    }
+
+    /**
+     *
+     */
+    /**
+     * Modul-Konfiguration
+     */
+    public static function getModuleConfigInputfields(array $data) : InputfieldWrapper
+    {
+        $inputfields = new InputfieldWrapper();
+
+        /**
+         * Represents a variable named $f.
+         *
+         * The purpose and type of this variable should be defined
+         * based on its usage in the application. Ensure that
+         * adequate context is provided where this variable is utilized.
+         */
+        $f = wire('modules')->get('InputfieldCheckboxes');
+        $f->name = 'remove_frameworks';
+        $f->label = __('Deaktivieren eines Frameworks');
+        $f->description = __('Frameworks für Tests oder dauerhaft deaktiviert.');
+        $f->columnWidth = 100;
+        $f->addOption('global_aos', 'AOS.js deaktivieren');
+        $f->addOption('global_bootstrap', 'Bootstrap deaktivieren');
+        $f->addOption('global_bootstrap_icons', 'Bootstrap Icons deaktivieren');
+        $f->addOption('global_swiper', 'Swiper deaktivieren');
+        $f->addOption('global_lazyload', 'Lazyload deaktivieren');
+        $f->addOption('global_jquery', 'JQuery deaktivieren');
+        $f->value = isset($data['remove_frameworks']) ? $data['remove_frameworks'] : [];
+        $inputfields->add($f);
+
+        return $inputfields;
     }
 
     /**
@@ -80,6 +150,8 @@ class WesanoxFrameworkPackage extends WireData implements Module
 
         if (file_exists($files_dir . $type_name . '.css')) {
             $url = $files_dir . $type_name . '.css';
+        } else if (file_exists($files_dir . $type_name . '.scss')) {
+            $url = $files_dir . $type_name . '.scss';
         }
 
         return $url;
