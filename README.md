@@ -31,7 +31,7 @@ echo wire()->modules->WesanoxFrameworkPackage->renderStyles();
 ### Output scripts:
 
 ```php
-echo wire()->WesanoxFrameworkPackage->renderScripts();
+echo wire()->modules->WesanoxFrameworkPackage->renderScripts();
 ```
 
 These methods generate `<link>` and `<script>` tags for all configured assets **only if the files exist**.
